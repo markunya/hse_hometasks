@@ -23,7 +23,7 @@ bool ValidatePassword(const std::string& password) {
             ++amount_of_lower;
         }
         if (isupper(password[i])) {
-            ++amount_of_upper
+            ++amount_of_upper;
         }
         if (isdigit(password[i])) {
             ++amount_of_digit;
