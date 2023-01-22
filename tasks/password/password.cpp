@@ -3,8 +3,8 @@
 
 const int MIN_SIZE_OF_PASSWORD = 8;
 const int MAX_SIZE_OF_PASSWORD = 14;
-const int MIN_CHAR_CODE = 33;
-const int MAX_CHAR_CODE = 126;
+const char MIN_CHAR_CODE = '!';
+const char MAX_CHAR_CODE = '~';
 
 bool ValidatePassword(const std::string& password) {
     if (password.size() < MIN_SIZE_OF_PASSWORD || password.size() > MAX_SIZE_OF_PASSWORD) {
