@@ -1,8 +1,11 @@
 #include "cctype"
 #include "password.h"
-
+const int MIN_SIZE_OF_PASSWORD = 8;
+const int MAX_SIZE_OF_PASSWORD = 14;
+const int MIN_CHAR_CODE = 33;
+const int MAX_CHAR_CODE = 126;
 bool ValidatePassword(const std::string& password) {
-    if (password.size() < 8 || password.size() > 14) {
+    if (password.size() < MIN_SIZE_OF_PASSWORD || password.size() > MAX_SIZE_OF_PASSWORD) {
         return false;
     }
     bool has_lower = false;
@@ -11,7 +14,7 @@ bool ValidatePassword(const std::string& password) {
     bool has_symbol = false;
     for (int i = 0; i < password.size(); ++i) {
         int char_code = password[i];
-        if (char_code < 33 || char_code > 126) {
+        if (char_code < MIN_CHAR_CODE || char_code > MAX_CHAR_CODE) {
             return false;
         }
         if (islower(password[i])) {
