@@ -10,29 +10,29 @@ bool ValidatePassword(const std::string& password) {
     if (password.size() < MIN_SIZE_OF_PASSWORD || password.size() > MAX_SIZE_OF_PASSWORD) {
         return false;
     }
-    int amount_of_lower = 0;
-    int amount_of_upper = 0;
-    int amount_of_digit = 0;
-    int amount_of_symbol = 0;
+    bool has_lower = false;
+    bool has_upper = false;
+    bool has_digit = false;
+    bool has_symbol = false;
     for (int i = 0; i < password.size(); ++i) {
         int char_code = password[i];
         if (char_code < MIN_CHAR_CODE || char_code > MAX_CHAR_CODE) {
             return false;
         }
         if (islower(password[i])) {
-            ++amount_of_lower;
+            has_lower = true;
         }
         if (isupper(password[i])) {
-            ++amount_of_upper;
+            has_upper = true;
         }
         if (isdigit(password[i])) {
-            ++amount_of_digit;
+            has_digit = true;
         }
         if (!isdigit(password[i]) && !isalpha(password[i])) {
-            ++amount_of_symbol;
+            has_symbol = true;
         }
     }
-    if (amount_of_lower >= 3 || amount_of_upper >= 3 || amount_of_digit >= 3 || amount_of_symbol >= 3) {
+    if (has_lower + has_upper + has_digit + has_symbol >= 3) {
         return true;
     } else {
         return false;
