@@ -8,7 +8,7 @@ bool IsPalindrome(const std::string& str) {
             ++left;
             continue;
         }
-        if(str[right] == ' ') {
+        if (str[right] == ' ') {
             --right;
             continue;
         }
