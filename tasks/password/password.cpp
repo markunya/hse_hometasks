@@ -1,8 +1,8 @@
 #include "cctype"
 #include "password.h"
 
-const int MIN_SIZE_OF_PASSWORD = 8;
-const int MAX_SIZE_OF_PASSWORD = 14;
+const size_t MIN_SIZE_OF_PASSWORD = 8;
+const size_t MAX_SIZE_OF_PASSWORD = 14;
 const char MIN_CHAR_CODE = '!';
 const char MAX_CHAR_CODE = '~';
 
