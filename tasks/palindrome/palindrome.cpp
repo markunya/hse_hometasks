@@ -1,8 +1,11 @@
 #include "palindrome.h"
 
 bool IsPalindrome(const std::string& str) {
+    if (str.empty()) {
+        return true;
+    }
     size_t left = 0;
-    size_t right = str.empty() ? 0 : str.size() - 1;
+    size_t right =  str.size() - 1;
     while (left < right) {
         if (str[left] == ' ') {
             ++left;
