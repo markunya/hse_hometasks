@@ -5,7 +5,7 @@ bool IsPalindrome(const std::string& str) {
         return true;
     }
     size_t left = 0;
-    size_t right =  str.size() - 1;
+    size_t right = str.size() - 1;
     while (left < right) {
         if (str[left] == ' ') {
             ++left;
