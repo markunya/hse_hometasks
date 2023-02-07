@@ -20,7 +20,8 @@ AdmissionTable FillUniversities(const std::vector<University>& universities, con
     }
     for (size_t i = 0; i < applicants_pointers.size(); ++i) {
         for (size_t j = 0; j < applicants_pointers[i]->wish_list.size(); ++j) {
-            if (result[applicants_pointers[i]->wish_list[j]].size() < universities_max_students[applicants_pointers[i]->wish_list[j]]) {
+            size_t amount_of_already_students = result[applicants_pointers[i]->wish_list[j]].size();
+            if (amount_of_already_students < universities_max_students[applicants_pointers[i]->wish_list[j]]) {
                 result[applicants_pointers[i]->wish_list[j]].emplace_back(&applicants_pointers[i]->student);
                 break;
             }
