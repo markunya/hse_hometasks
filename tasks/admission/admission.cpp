@@ -11,7 +11,7 @@ AdmissionTable FillUniversities(const std::vector<University>& universities, con
     std::unordered_map<std::string, size_t> universities_max_students;
     std::vector<const Applicant*> applicants_pointers;
     for (size_t i = 0; i < applicants.size(); ++i) {
-        applicants_pointers.emplace_back( &applicants[i]);
+        applicants_pointers.emplace_back(&applicants[i]);
     }
     std::sort(applicants_pointers.begin(), applicants_pointers.end(), CompareStudents);
     for (size_t i = 0; i < universities.size(); ++i) {
