@@ -12,7 +12,7 @@ int DotProduct(std::vector<int> vector_1, std::vector<int> vector_2) {
 
 std::vector<std::string> FindClosestWords(const std::vector<std::string>& words,
                                           const std::vector<std::vector<int>>& vectors) {
-    if (vectors.size() < 2){
+    if (vectors.size() < 2) {
         return {};
     }
     std::vector<std::string> closest_words = {words[1]};
