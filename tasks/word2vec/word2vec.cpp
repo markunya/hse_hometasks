@@ -5,7 +5,7 @@
 int DotProduct(std::vector<int> vector_1, std::vector<int> vector_2) {
     int dot_product = 0;
     for (size_t i = 0; i < vector_1.size(); ++i) {
-        dot_product+=vector_1[i]*vector_2[i];
+        dot_product +=vector_1[i] * vector_2[i];
     }
     return dot_product;
 }
