@@ -26,6 +26,7 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
         }
         if (interesting_events[i]->event_type == EventType::MergeRequestOpen) {
             students_merge_requests[interesting_events[i]->student_name] = true;
+            scored_students[interesting_events[i]->student_name].erase(interesting_events[i]->task_name);
         }
     }
     return scored_students;  // test
