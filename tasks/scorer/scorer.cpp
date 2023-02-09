@@ -7,7 +7,6 @@ bool CompareEvents(const Event* event_1, const Event* event_2) {
 
 ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
     ScoreTable scored_students = {};
-    std::unordered_map<std::string, bool> students_merge_requests;
     std::vector<const Event*> interesting_events = {};
     for (size_t i = 0; i < events.size(); ++i) {
         if (events[i].time <= score_time) {
@@ -15,18 +14,13 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
         }
     }
     std::sort(interesting_events.begin(), interesting_events.end(), CompareEvents);
-    for (size_t i = 0; i < interesting_events.size(); ++i) {
-        if (interesting_events[i]->event_type == EventType::CheckSuccess &&
-            !students_merge_requests[interesting_events[i]->student_name]) {
-            scored_students[interesting_events[i]->student_name].insert(interesting_events[i]->task_name);
-        }
-        if (interesting_events[i]->event_type == EventType::MergeRequestClosed) {
-            students_merge_requests[interesting_events[i]->student_name] = false;
-            scored_students[interesting_events[i]->student_name].insert(interesting_events[i]->task_name);
-        }
-        if (interesting_events[i]->event_type == EventType::MergeRequestOpen) {
-            students_merge_requests[interesting_events[i]->student_name] = true;
-            scored_students[interesting_events[i]->student_name].erase(interesting_events[i]->task_name);
+    for (auto event : interesting_events) {
+        if (event->event_type == EventType::CheckSuccess) {
+            scored_students[event->student_name].insert(event->task_name);
+        } else if (event->event_type == EventType::MergeRequestClosed) {
+            scored_students[event->student_name].insert(event->task_name);
+        } else if (event->event_type == EventType::MergeRequestOpen) {
+            scored_students[event->student_name].erase(event->task_name);
         }
     }
     return scored_students;  // test
