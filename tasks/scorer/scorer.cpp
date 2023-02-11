@@ -21,17 +21,19 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
             students_states[student->student_name][student->task_name] =
                 std::pair(EventType::CheckFailed, EventType::MergeRequestClosed);
         }
-        if (student->event_type == EventType::MergeRequestOpen) {
-            students_states[student->student_name][student->task_name].second = EventType::MergeRequestOpen;
-        }
-        if (student->event_type == EventType::MergeRequestClosed) {
-            students_states[student->student_name][student->task_name].second = EventType::MergeRequestClosed;
-        }
-        if (student->event_type == EventType::CheckSuccess) {
-            students_states[student->student_name][student->task_name].first = EventType::CheckSuccess;
-        }
-        if (student->event_type == EventType::CheckFailed) {
-            students_states[student->student_name][student->task_name].first = EventType::CheckFailed;
+        switch (student->event_type) {
+            case EventType::CheckFailed:
+                students_states[student->student_name][student->task_name].first = EventType::CheckFailed;
+                break;
+            case EventType::CheckSuccess:
+                students_states[student->student_name][student->task_name].first = EventType::CheckSuccess;
+                break;
+            case EventType::MergeRequestOpen:
+                students_states[student->student_name][student->task_name].second = EventType::MergeRequestOpen;
+                break;
+            case EventType::MergeRequestClosed:
+                students_states[student->student_name][student->task_name].second = EventType::MergeRequestClosed;
+                break;
         }
     }
     for (auto it_1 = students_states.begin(); it_1 != students_states.end(); ++it_1) {
