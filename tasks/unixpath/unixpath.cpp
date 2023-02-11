@@ -1,5 +1,5 @@
 #include "unixpath.h"
-#include "iostream"
+
 std::string NormalizePath(std::string_view current_working_dir, std::string_view path) {
     std::string normalized_path = static_cast<std::string>(current_working_dir);
     while (path.length() > 0) {
@@ -20,7 +20,11 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
         if (directory == "..") {
             normalized_path = normalized_path.substr(0, normalized_path.rfind("/"));
         } else if (directory != "." && !directory.empty()) {
-            normalized_path += "/" + directory;
+            if (normalized_path.ends_with("/")) {
+                normalized_path += directory;
+            } else {
+                normalized_path += "/" + directory;
+            }
         }
         path.remove_prefix(index_of_slash + 1);
     }
