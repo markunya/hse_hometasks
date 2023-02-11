@@ -12,7 +12,11 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
                 }
                 normalized_path = normalized_path.substr(0, normalized_path.rfind("/"));
             } else if (directory != ".") {
-                normalized_path += "/" + directory;
+                if (normalized_path.ends_with("/")) {
+                    normalized_path += directory;
+                } else {
+                    normalized_path += "/" + directory;
+                }
             }
             break;
         }
