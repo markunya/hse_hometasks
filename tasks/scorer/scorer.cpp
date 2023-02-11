@@ -14,15 +14,28 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
         }
     }
     std::sort(interesting_events.begin(), interesting_events.end(), CompareEvents);
-    for (auto event : interesting_events) {
-        if (event->event_type == EventType::CheckSuccess) {
-            scored_students[event->student_name].insert(event->task_name);
-        } else if (event->event_type == EventType::MergeRequestClosed) {
-            scored_students[event->student_name].insert(event->task_name);
-        } else if (event->event_type == EventType::MergeRequestOpen) {
-            scored_students[event->student_name].erase(event->task_name);
-            if (scored_students[event->student_name].empty()) {
-                scored_students.erase(event->student_name);
+    std::unordered_map<std::string, std::unordered_map<std::string, std::pair<EventType, EventType>>> students_states = {};
+    for (auto student : interesting_events) {
+        if (!students_states[student->student_name].contains(student->task_name)) {
+            students_states[student->student_name][student->task_name] = std::pair(EventType::CheckFailed, EventType::MergeRequestClosed);
+        }
+        if (student->event_type == EventType::MergeRequestOpen) {
+            students_states[student->student_name][student->task_name].second = EventType::MergeRequestOpen;
+        }
+        if (student->event_type == EventType::MergeRequestClosed) {
+            students_states[student->student_name][student->task_name].second = EventType::MergeRequestClosed;
+        }
+        if (student->event_type == EventType::CheckSuccess) {
+            students_states[student->student_name][student->task_name].first = EventType::CheckSuccess;
+        }
+        if (student->event_type == EventType::CheckFailed) {
+            students_states[student->student_name][student->task_name].first = EventType::CheckFailed;
+        }
+    }
+    for (auto it_1 = students_states.begin(); it_1 != students_states.end(); ++it_1) {
+        for (auto it_2 = it_1->second.begin(); it_2 != it_1->second.end(); ++it_2) {
+            if (it_2->second.first == EventType::CheckSuccess && it_2->second.second == EventType::MergeRequestClosed) {
+                scored_students[it_1->first].insert(it_2->first);
             }
         }
     }
