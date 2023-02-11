@@ -14,10 +14,12 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
         }
     }
     std::sort(interesting_events.begin(), interesting_events.end(), CompareEvents);
-    std::unordered_map<std::string, std::unordered_map<std::string, std::pair<EventType, EventType>>> students_states = {};
+    std::unordered_map<std::string, std::unordered_map<std::string, std::pair<EventType, EventType>>> students_states =
+        {};
     for (auto student : interesting_events) {
         if (!students_states[student->student_name].contains(student->task_name)) {
-            students_states[student->student_name][student->task_name] = std::pair(EventType::CheckFailed, EventType::MergeRequestClosed);
+            students_states[student->student_name][student->task_name] =
+                std::pair(EventType::CheckFailed, EventType::MergeRequestClosed);
         }
         if (student->event_type == EventType::MergeRequestOpen) {
             students_states[student->student_name][student->task_name].second = EventType::MergeRequestOpen;
