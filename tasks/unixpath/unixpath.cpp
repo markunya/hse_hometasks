@@ -23,6 +23,9 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
         std::string directory = static_cast<std::string>(path.substr(0, index_of_slash));
         if (directory == "..") {
             normalized_path = normalized_path.substr(0, normalized_path.rfind("/"));
+            if (normalized_path.empty()) {
+                normalized_path = "/";
+            }
         } else if (directory != "." && !directory.empty()) {
             if (normalized_path.ends_with("/")) {
                 normalized_path += directory;
