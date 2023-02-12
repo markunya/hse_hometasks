@@ -13,4 +13,8 @@ TEST_CASE("NormalizePath") {
     REQUIRE("/b" == NormalizePath("/", ".././/././/./../b/././././././"));
 
     REQUIRE("/" == NormalizePath("/", "/r////./../"));
+    REQUIRE("/home" == NormalizePath("//home/", ""));
+
+    REQUIRE("/tmp" == NormalizePath("/home", "../../tmp/"));
+    REQUIRE("/" == NormalizePath("/", "."));
 }
