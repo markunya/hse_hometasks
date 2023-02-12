@@ -6,19 +6,7 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
         while (!current_working_dir.empty()) {
             size_t index_of_slash = current_working_dir.find("/");
             if (index_of_slash == std::string_view::npos) {
-                if (current_working_dir == "..") {
-                    normalized_path = normalized_path.substr(0, normalized_path.rfind("/"));
-                    if (normalized_path.empty()) {
-                        normalized_path = "/";
-                    }
-                } else if (current_working_dir != ".") {
-                    if (normalized_path == "/") {
-                        normalized_path += static_cast<std::string>(current_working_dir);
-                    } else {
-                        normalized_path += "/" + static_cast<std::string>(current_working_dir);
-                    }
-                }
-                break;
+                index_of_slash = current_working_dir.length();
             }
             std::string directory = static_cast<std::string>(current_working_dir.substr(0, index_of_slash));
             if (directory == "..") {
@@ -28,30 +16,17 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
                 }
             } else if (directory != "." && !directory.empty()) {
                 if (normalized_path == "/") {
-                    normalized_path += directory;
-                } else {
-                    normalized_path += "/" + directory;
+                    normalized_path.clear();
                 }
+                normalized_path += "/" + directory;
             }
-            current_working_dir.remove_prefix(index_of_slash + 1);
+            current_working_dir.remove_prefix(index_of_slash == current_working_dir.length() ? index_of_slash : index_of_slash + 1);
         }
     }
     while (!path.empty()) {
         size_t index_of_slash = path.find("/");
         if (index_of_slash == std::string_view::npos) {
-            if (path == "..") {
-                normalized_path = normalized_path.substr(0, normalized_path.rfind("/"));
-                if (normalized_path.empty()) {
-                    normalized_path = "/";
-                }
-            } else if (path != ".") {
-                if (normalized_path == "/") {
-                    normalized_path += static_cast<std::string>(path);
-                } else {
-                    normalized_path += "/" + static_cast<std::string>(path);
-                }
-            }
-            break;
+            index_of_slash = path.length();
         }
         std::string directory = static_cast<std::string>(path.substr(0, index_of_slash));
         if (directory == "..") {
@@ -61,12 +36,11 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
             }
         } else if (directory != "." && !directory.empty()) {
             if (normalized_path == "/") {
-                normalized_path += directory;
-            } else {
-                normalized_path += "/" + directory;
+                normalized_path.clear();
             }
+            normalized_path += "/" + directory;
         }
-        path.remove_prefix(index_of_slash + 1);
+        path.remove_prefix(index_of_slash == path.length() ? index_of_slash : index_of_slash + 1);
     }
     return normalized_path;
 }
