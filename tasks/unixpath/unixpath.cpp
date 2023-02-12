@@ -20,7 +20,8 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
                 }
                 normalized_path += "/" + directory;
             }
-            current_working_dir.remove_prefix(index_of_slash == current_working_dir.length() ? index_of_slash : index_of_slash + 1);
+            current_working_dir.remove_prefix(index_of_slash == current_working_dir.length() ? index_of_slash
+                                                                                             : index_of_slash + 1);
         }
     }
     while (!path.empty()) {
