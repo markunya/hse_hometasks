@@ -1,7 +1,7 @@
 #include "unixpath.h"
 
 std::string NormalizePath(std::string_view current_working_dir, std::string_view path) {
-    std::string normalized_path = "";
+    std::string normalized_path;
     while (!current_working_dir.empty()) {
         while (current_working_dir.starts_with("/")) {
             current_working_dir.remove_prefix(1);
