@@ -47,7 +47,7 @@ void QueryToSet(std::string_view query, std::unordered_set<std::string_view>& qu
     SeparateToWords(query, query_words);
 }
 
-void SeparateTextToStrings (std::string_view text, std::vector<std::string_view>& strings_of_text) {
+void SeparateTextToStrings(std::string_view text, std::vector<std::string_view>& strings_of_text) {
     size_t index_of_back_slash_n = text.find("\n");
     while (index_of_back_slash_n != std::string_view::npos) {
         std::string_view str = text.substr(0, index_of_back_slash_n);
@@ -68,8 +68,8 @@ void SeparateTextToStrings (std::string_view text, std::vector<std::string_view>
     }
 }
 
-void StringOfTextToMap (std::string_view str, std::vector<size_t>& strings_amounts_of_words,
-                        std::vector<std::unordered_map<std::string_view, size_t>>& strings_maps) {
+void StringOfTextToMap(std::string_view str, std::vector<size_t>& strings_amounts_of_words,
+                       std::vector<std::unordered_map<std::string_view, size_t>>& strings_maps) {
     size_t index_of_space = str.find(" ");
     size_t amount_of_words = 0;
     std::unordered_map<std::string_view, size_t> string_map = {};
