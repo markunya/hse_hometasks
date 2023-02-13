@@ -17,7 +17,8 @@ void SeparateToWords(std::string_view query_item, std::unordered_set<std::string
     }
 }
 
-void SeparateToWords(std::string_view query_item, std::unordered_map<std::string_view, size_t>& str_map, size_t& amount) {
+void SeparateToWords(std::string_view query_item, std::unordered_map<std::string_view, size_t>& str_map,
+                     size_t& amount) {
     size_t border = 0;
     for (size_t i = 0; i < query_item.length() + 1; ++i) {
         if (i == query_item.length() || !std::isalpha(query_item[i])) {
@@ -28,7 +29,7 @@ void SeparateToWords(std::string_view query_item, std::unordered_map<std::string
                 } else {
                     str_map[word] = 1;
                 }
-                amount+=1;
+                amount += 1;
             }
             border = i + 1;
         }
@@ -51,7 +52,7 @@ void SeparateTextToStrings (std::string_view text, std::vector<std::string_view>
     while (index_of_back_slash_n != std::string_view::npos) {
         std::string_view str = text.substr(0, index_of_back_slash_n);
         for (size_t i = 0; i < str.length(); ++i) {
-            if(std::isalpha(str[i])) {
+            if (std::isalpha(str[i])) {
                 strings_of_text.emplace_back(str);
                 break;
             }
@@ -60,7 +61,7 @@ void SeparateTextToStrings (std::string_view text, std::vector<std::string_view>
         index_of_back_slash_n = text.find("\n");
     }
     for (size_t i = 0; i < text.length(); ++i) {
-        if(std::isalpha(text[i])) {
+        if (std::isalpha(text[i])) {
             strings_of_text.emplace_back(text);
             break;
         }
@@ -68,7 +69,7 @@ void SeparateTextToStrings (std::string_view text, std::vector<std::string_view>
 }
 
 void StringOfTextToMap (std::string_view str, std::vector<size_t>& strings_amounts_of_words,
-                 std::vector<std::unordered_map<std::string_view, size_t>>& strings_maps) {
+                        std::vector<std::unordered_map<std::string_view, size_t>>& strings_maps) {
     size_t index_of_space = str.find(" ");
     size_t amount_of_words = 0;
     std::unordered_map<std::string_view, size_t> string_map = {};
