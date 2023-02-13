@@ -14,7 +14,11 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
                 if (normalized_path.empty()) {
                     normalized_path = "/";
                 }
-            } else if (directory != "." && !directory.empty()) {
+                current_working_dir.remove_prefix(index_of_slash == current_working_dir.length() ? index_of_slash
+                                                                                                 : index_of_slash + 1);
+                continue;
+            }
+            if (directory != "." && !directory.empty()) {
                 if (normalized_path == "/") {
                     normalized_path.clear();
                 }
@@ -35,7 +39,10 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
             if (normalized_path.empty()) {
                 normalized_path = "/";
             }
-        } else if (directory != "." && !directory.empty()) {
+            path.remove_prefix(index_of_slash == path.length() ? index_of_slash : index_of_slash + 1);
+            continue;
+        }
+        if (directory != "." && !directory.empty()) {
             if (normalized_path == "/") {
                 normalized_path.clear();
             }
