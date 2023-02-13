@@ -99,7 +99,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
         std::unordered_map<std::string_view, float> self_tf = {};
         std::unordered_map<std::string_view, float> self_idf = {};
         for (auto query_word : query_words) {
-            self_tf[query_word] = static_cast<float>(strings_maps[i][query_word])/strings_amounts_of_words[i];
+            self_tf[query_word] = static_cast<float>(strings_maps[i][query_word]) / strings_amounts_of_words[i];
             if (self_idf.contains(query_word)) {
                 self_idf[query_word] += 1;
             } else {
@@ -113,7 +113,8 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
     for (size_t i = 0; i < strings_of_text.size(); ++i) {
         float tf_idf = 0;
         for (auto query_word : query_words) {
-            tf_idf += self_tfs[i][query_word]*std::log(static_cast<float>(strings_of_text.size())/self_idfs[i][query_word]);
+            tf_idf += self_tfs[i][query_word] *
+                      std::log(static_cast<float>(strings_of_text.size()) / self_idfs[i][query_word]);
         }
         tf_idfs.emplace_back(std::pair(tf_idf, strings_of_text.size() - i));
     }
