@@ -128,7 +128,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
     }
     std::sort(tf_idfs.begin(), tf_idfs.end());
     size_t index = strings_of_text.size() - 1;
-    while (result.size() < results_count && index < tf_idfs.size()) {
+    while (result.size() < results_count && index < tf_idfs.size() && tf_idfs[index].first > 0) {
         result.emplace_back(strings_of_text[strings_of_text.size() - tf_idfs[index].second]);
         --index;
     }
