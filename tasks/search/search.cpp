@@ -4,30 +4,38 @@
 #include <valarray>
 #include "search.h"
 
-void SeparateToWords(std::string_view query_item, std::unordered_set<std::string_view>& words) {
+std::string ToLowerCase(std::string_view word) {
+    std::string word_lower;
+    for (auto j : word) {
+        word_lower += std::tolower(j);
+    }
+    return word_lower;
+}
+
+void SeparateToWords(std::string_view query_item, std::unordered_set<std::string>& words) {
     size_t border = 0;
     for (size_t i = 0; i < query_item.length() + 1; ++i) {
         if (i == query_item.length() || !std::isalpha(query_item[i])) {
             std::string_view word = query_item.substr(border, i - border);
             if (!word.empty()) {
-                words.insert(word);
+                words.insert(ToLowerCase(word));
             }
             border = i + 1;
         }
     }
 }
 
-void SeparateToWords(std::string_view query_item, std::unordered_map<std::string_view, size_t>& str_map,
+void SeparateToWords(std::string_view query_item, std::unordered_map<std::string, size_t>& str_map,
                      size_t& amount) {
     size_t border = 0;
     for (size_t i = 0; i < query_item.length() + 1; ++i) {
         if (i == query_item.length() || !std::isalpha(query_item[i])) {
             std::string_view word = query_item.substr(border, i - border);
             if (!word.empty()) {
-                if (str_map.contains(word)) {
-                    str_map[word] += 1;
+                if (str_map.contains(static_cast<std::string>(word))) {
+                    str_map[ToLowerCase(word)] += 1;
                 } else {
-                    str_map[word] = 1;
+                    str_map[ToLowerCase(word)] = 1;
                 }
                 amount += 1;
             }
@@ -36,7 +44,7 @@ void SeparateToWords(std::string_view query_item, std::unordered_map<std::string
     }
 }
 
-void QueryToSet(std::string_view query, std::unordered_set<std::string_view>& query_words) {
+void QueryToSet(std::string_view query, std::unordered_set<std::string>& query_words) {
     size_t index_of_space = query.find(" ");
     while (index_of_space != std::string_view::npos) {
         std::string_view query_item = query.substr(0, index_of_space);
@@ -69,10 +77,10 @@ void SeparateTextToStrings(std::string_view text, std::vector<std::string_view>&
 }
 
 void StringOfTextToMap(std::string_view str, std::vector<size_t>& strings_amounts_of_words,
-                       std::vector<std::unordered_map<std::string_view, size_t>>& strings_maps) {
+                       std::vector<std::unordered_map<std::string, size_t>>& strings_maps) {
     size_t index_of_space = str.find(" ");
     size_t amount_of_words = 0;
-    std::unordered_map<std::string_view, size_t> string_map = {};
+    std::unordered_map<std::string, size_t> string_map = {};
     while (index_of_space != std::string_view::npos) {
         std::string_view query_item = str.substr(0, index_of_space);
         SeparateToWords(query_item, string_map, amount_of_words);
@@ -86,19 +94,19 @@ void StringOfTextToMap(std::string_view str, std::vector<size_t>& strings_amount
 
 std::vector<std::string_view> Search(std::string_view text, std::string_view query, size_t results_count) {
     std::vector<std::string_view> result = {};
-    std::unordered_set<std::string_view> query_words = {};
+    std::unordered_set<std::string> query_words = {};
     QueryToSet(query, query_words);
     std::vector<std::string_view> strings_of_text = {};
     std::vector<size_t> strings_amounts_of_words = {};
-    std::vector<std::unordered_map<std::string_view, size_t>> strings_maps = {};
-    std::vector<std::unordered_map<std::string_view, long double>> self_tfs = {};
-    std::vector<std::unordered_map<std::string_view, long double>> self_idfs = {};
+    std::vector<std::unordered_map<std::string, size_t>> strings_maps = {};
+    std::vector<std::unordered_map<std::string, long double>> self_tfs = {};
+    std::vector<std::unordered_map<std::string, long double>> self_idfs = {};
     std::vector<std::pair<long double, size_t>> tf_idfs = {};
     SeparateTextToStrings(text, strings_of_text);
     for (size_t i = 0; i < strings_of_text.size(); ++i) {
         StringOfTextToMap(strings_of_text[i], strings_amounts_of_words, strings_maps);
-        std::unordered_map<std::string_view, long double> self_tf = {};
-        std::unordered_map<std::string_view, long double> self_idf = {};
+        std::unordered_map<std::string, long double> self_tf = {};
+        std::unordered_map<std::string, long double> self_idf = {};
         for (auto query_word : query_words) {
             self_tf[query_word] = static_cast<long double>(strings_maps[i][query_word]) / strings_amounts_of_words[i];
             if (self_idf.contains(query_word)) {
