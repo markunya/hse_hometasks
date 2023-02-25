@@ -29,7 +29,8 @@ public:
             std::unordered_map<std::string, long double> self_tf = {};
             std::unordered_map<std::string, long double> self_idf = {};
             for (auto const& query_word : query_words) {
-                self_tf[query_word] = static_cast<long double>(strings_maps_[i][query_word]) / strings_amounts_of_words_[i];
+                self_tf[query_word] =
+                    static_cast<long double>(strings_maps_[i][query_word]) / strings_amounts_of_words_[i];
                 if (self_idf.contains(query_word)) {
                     self_idf[query_word] += 1;
                 } else {
@@ -91,7 +92,8 @@ private:
         }
     }
 
-    void SeparateToWords(std::string_view query_item, std::unordered_map<std::string, size_t>& str_map, size_t& amount) {
+    void SeparateToWords(std::string_view query_item, std::unordered_map<std::string, size_t>& str_map,
+                         size_t& amount) {
         size_t border = 0;
         for (size_t i = 0; i < query_item.length() + 1; ++i) {
             if (i == query_item.length() || !std::isalpha(query_item[i])) {
@@ -156,5 +158,4 @@ private:
         strings_amounts_of_words.emplace_back(amount_of_words);
         strings_maps.emplace_back(string_map);
     }
-
 };
