@@ -60,7 +60,8 @@ public:
         ScoreTable scored_students = {};
         for (auto it_1 = students_states_.begin(); it_1 != students_states_.end(); ++it_1) {
             for (auto it_2 = it_1->second.begin(); it_2 != it_1->second.end(); ++it_2) {
-                if (it_2->second.first == EventType::CheckSuccess && it_2->second.second == EventType::MergeRequestClosed) {
+                if (it_2->second.first == EventType::CheckSuccess &&
+                    it_2->second.second == EventType::MergeRequestClosed) {
                     scored_students[it_1->first].insert(it_2->first);
                 }
             }
