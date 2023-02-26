@@ -1,7 +1,10 @@
 #pragma once
 
+#include <random>
 #include <string>
 #include <vector>
+#include <tuple>
+#include <unordered_set>
 
 class Minesweeper {
 public:
@@ -19,16 +22,19 @@ public:
 
     using RenderedField = std::vector<std::string>;
 
-    Minesweeper(size_t width, size_t height, size_t mines_count);
-    Minesweeper(size_t width, size_t height, const std::vector<Cell>& cells_with_mines);
+    Minesweeper(size_t width, size_t height, size_t mines_count) {};
+
+    Minesweeper(size_t width, size_t height, const std::vector<Cell>& cells_with_mines) {};
 
     void NewGame(size_t width, size_t height, size_t mines_count);
     void NewGame(size_t width, size_t height, const std::vector<Cell>& cells_with_mines);
 
     void OpenCell(const Cell& cell);
+
     void MarkCell(const Cell& cell);
 
     GameStatus GetGameStatus() const;
+
     time_t GetGameTime() const;
 
     RenderedField RenderField() const;
