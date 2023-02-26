@@ -24,7 +24,7 @@ public:
         std::vector<std::string_view> result = {};
         std::unordered_set<std::string> query_words = {};
         QueryToSet(query, query_words);
-        for (size_t i = 0; i < strings_of_text_.size(); ++i) {
+        for (size_t i =0; i < strings_of_text_.size(); ++i) {
             StringOfTextToMap(strings_of_text_[i], strings_amounts_of_words_, strings_maps_);
             std::unordered_map<std::string, long double> self_tf = {};
             std::unordered_map<std::string, long double> self_idf = {};
@@ -126,8 +126,8 @@ private:
         size_t index_of_back_slash_n = text.find("\n");
         while (index_of_back_slash_n != std::string_view::npos) {
             std::string_view str = text.substr(0, index_of_back_slash_n);
-            for (size_t i = 0; i < str.length(); ++i) {
-                if (std::isalpha(str[i])) {
+            for (auto i : str) {
+                if (std::isalpha(i)) {
                     strings_of_text.emplace_back(str);
                     break;
                 }
@@ -135,8 +135,8 @@ private:
             text.remove_prefix(index_of_back_slash_n + 1);
             index_of_back_slash_n = text.find("\n");
         }
-        for (size_t i = 0; i < text.length(); ++i) {
-            if (std::isalpha(text[i])) {
+        for (auto i : text) {
+            if (std::isalpha(i)) {
                 strings_of_text.emplace_back(text);
                 break;
             }
