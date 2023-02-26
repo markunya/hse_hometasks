@@ -24,7 +24,7 @@ public:
         std::vector<std::string_view> result = {};
         std::unordered_set<std::string> query_words = {};
         QueryToSet(query, query_words);
-        for (size_t i =0; i < strings_of_text_.size(); ++i) {
+        for (size_t i = 0; i < strings_of_text_.size(); ++i) {
             StringOfTextToMap(strings_of_text_[i], strings_amounts_of_words_, strings_maps_);
             std::unordered_map<std::string, long double> self_tf = {};
             std::unordered_map<std::string, long double> self_idf = {};
