@@ -19,8 +19,7 @@ public:
                 if (normalized_path.empty()) {
                     normalized_path = "/";
                 }
-                initial_dir.remove_prefix(index_of_slash == initial_dir.length() ? index_of_slash
-                                                                                                 : index_of_slash + 1);
+                initial_dir.remove_prefix(index_of_slash == initial_dir.length() ? index_of_slash : index_of_slash + 1);
                 continue;
             }
             if (directory != "." && !directory.empty()) {
@@ -29,8 +28,7 @@ public:
                 }
                 normalized_path += "/" + directory;
             }
-            initial_dir.remove_prefix(index_of_slash == initial_dir.length() ? index_of_slash
-                                                                                             : index_of_slash + 1);
+            initial_dir.remove_prefix(index_of_slash == initial_dir.length() ? index_of_slash : index_of_slash + 1);
         }
         initial_dir_ = normalized_path;
         absolute_path_ = normalized_path;
