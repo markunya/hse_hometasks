@@ -8,6 +8,10 @@
 #include <queue>
 #include <time.h>
 
+const size_t P1 = 16769023;
+const size_t P2 = 16127;
+const size_t P3 = 3967;
+
 struct Cell {
     size_t x = 0;
     size_t y = 0;
@@ -21,7 +25,7 @@ namespace std {
 template <>
 struct hash<Cell> {
     inline size_t operator()(const Cell& cell) const {
-        return 16769023 * cell.x * cell.y + 16127 * cell.x + 3967 * cell.y + 223;
+        return P1 * cell.x * cell.y + P2 * cell.x + P3 * cell.y;
     }
 };
 }  // namespace std
@@ -67,7 +71,7 @@ public:
 
     void NewGame(size_t width, size_t height, size_t mines_count) {
         cells_with_mines_.clear();
-        cells_without_mines.clear();
+        cells_without_mines_.clear();
         field_.clear();
         game_status_ = GameStatus::NOT_STARTED;
         std::vector<Cell> shuffled_cells = {};
@@ -87,7 +91,7 @@ public:
 
     void NewGame(size_t width, size_t height, const std::vector<Cell>& cells_with_mines) {
         cells_with_mines_.clear();
-        cells_without_mines.clear();
+        cells_without_mines_.clear();
         field_.clear();
         game_status_ = GameStatus::NOT_STARTED;
         for (auto cell : cells_with_mines) {
@@ -194,8 +198,8 @@ public:
                         }
                         if (field_[curr_cell.y][curr_cell.x] != '?') {
                             field_[curr_cell.y][curr_cell.x] = '.';
-                            cells_without_mines.insert(curr_cell);
-                            if (cells_without_mines.size() + cells_with_mines_.size() ==
+                            cells_without_mines_.insert(curr_cell);
+                            if (cells_without_mines_.size() + cells_with_mines_.size() ==
                                 field_.size() * field_[0].size()) {
                                 game_status_ = GameStatus::VICTORY;
                                 end_ = clock();
@@ -204,9 +208,9 @@ public:
                     } else {
                         if (field_[curr_cell.y][curr_cell.x] != '?') {
                             field_[curr_cell.y][curr_cell.x] =
-                                (amount_of_existing_cells - candidates_to_be_in_queue.size()) + '0';
-                            cells_without_mines.insert(curr_cell);
-                            if (cells_without_mines.size() + cells_with_mines_.size() ==
+                                static_cast<char>((amount_of_existing_cells - candidates_to_be_in_queue.size()) + '0');
+                            cells_without_mines_.insert(curr_cell);
+                            if (cells_without_mines_.size() + cells_with_mines_.size() ==
                                 field_.size() * field_[0].size()) {
                                 game_status_ = GameStatus::VICTORY;
                                 end_ = clock();
@@ -254,7 +258,7 @@ public:
 
 private:
     std::unordered_set<Cell> cells_with_mines_;
-    std::unordered_set<Cell> cells_without_mines;
+    std::unordered_set<Cell> cells_without_mines_;
     std::vector<std::string> field_;
     GameStatus game_status_;
     clock_t begin_;
