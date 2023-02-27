@@ -18,17 +18,16 @@ struct Cell {
 };
 
 namespace std {
-template<>
+template <>
 struct hash<Cell> {
     inline size_t operator()(const Cell& cell) const {
-        return 16769023*cell.x*cell.y + 16127*cell.x +  3967*cell.y + 223;
+        return 16769023 * cell.x * cell.y + 16127 * cell.x +  3967 * cell.y + 223;
     }
 };
-}
+}  // namespace std
 
 class Minesweeper {
 public:
-
     enum class GameStatus {
         NOT_STARTED,
         IN_PROGRESS,
@@ -105,8 +104,8 @@ public:
     void OpenCell(const Cell& cell) {
         if (game_status_ != GameStatus::DEFEAT && game_status_ != GameStatus::VICTORY) {
             if (game_status_ == GameStatus::NOT_STARTED) {
-                    begin_ = clock();
-                    game_status_ = GameStatus::IN_PROGRESS;
+                begin_ = clock();
+                game_status_ = GameStatus::IN_PROGRESS;
             }
             if (cells_with_mines_.contains(cell)) {
                 game_status_ = GameStatus::DEFEAT;
@@ -196,16 +195,19 @@ public:
                         if (field_[curr_cell.y][curr_cell.x] != '?') {
                             field_[curr_cell.y][curr_cell.x] = '.';
                             cells_without_mines.insert(curr_cell);
-                            if (cells_without_mines.size() + cells_with_mines_.size() == field_.size()*field_[0].size()) {
+                            if (cells_without_mines.size() + cells_with_mines_.size() ==
+                                field_.size()*field_[0].size()) {
                                 game_status_ = GameStatus::VICTORY;
                                 end_ = clock();
                             }
                         }
                     } else {
                         if (field_[curr_cell.y][curr_cell.x] != '?') {
-                            field_[curr_cell.y][curr_cell.x] = (amount_of_existing_cells - candidates_to_be_in_queue.size()) + '0';
+                            field_[curr_cell.y][curr_cell.x] =
+                                (amount_of_existing_cells - candidates_to_be_in_queue.size()) + '0';
                             cells_without_mines.insert(curr_cell);
-                            if (cells_without_mines.size() + cells_with_mines_.size() == field_.size()*field_[0].size()) {
+                            if (cells_without_mines.size() + cells_with_mines_.size() ==
+                                field_.size()*field_[0].size()) {
                                 game_status_ = GameStatus::VICTORY;
                                 end_ = clock();
                             }
@@ -214,7 +216,7 @@ public:
                     candidates_to_be_in_queue.clear();
                 }
             }
-    }
+        }
     };
 
     void MarkCell(const Cell& cell) {
