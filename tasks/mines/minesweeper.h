@@ -21,7 +21,7 @@ namespace std {
 template <>
 struct hash<Cell> {
     inline size_t operator()(const Cell& cell) const {
-        return 16769023 * cell.x * cell.y + 16127 * cell.x +  3967 * cell.y + 223;
+        return 16769023 * cell.x * cell.y + 16127 * cell.x + 3967 * cell.y + 223;
     }
 };
 }  // namespace std
@@ -196,7 +196,7 @@ public:
                             field_[curr_cell.y][curr_cell.x] = '.';
                             cells_without_mines.insert(curr_cell);
                             if (cells_without_mines.size() + cells_with_mines_.size() ==
-                                field_.size()*field_[0].size()) {
+                                field_.size() * field_[0].size()) {
                                 game_status_ = GameStatus::VICTORY;
                                 end_ = clock();
                             }
@@ -207,7 +207,7 @@ public:
                                 (amount_of_existing_cells - candidates_to_be_in_queue.size()) + '0';
                             cells_without_mines.insert(curr_cell);
                             if (cells_without_mines.size() + cells_with_mines_.size() ==
-                                field_.size()*field_[0].size()) {
+                                field_.size() * field_[0].size()) {
                                 game_status_ = GameStatus::VICTORY;
                                 end_ = clock();
                             }
