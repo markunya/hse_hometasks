@@ -145,7 +145,7 @@ void Poly::operator*=(const Poly& other) {
     *this = *this * other;
 }
 
-size_t Poly::operator()(size_t value) const {
+size_t Poly::operator()(int64_t value) const {
     size_t result = 0;
     for (auto monomial : monomials_) {
         result += monomial.second * (Pow(value, monomial.first));

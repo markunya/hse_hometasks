@@ -19,7 +19,7 @@ public:
     void operator-=(const Poly& other);
     Poly operator*(const Poly& other);
     void operator*=(const Poly& other);
-    size_t operator()(size_t value) const;
+    size_t operator()(int64_t value) const;
 
     friend std::ostream& operator<<(std::ostream& stream, const Poly& poly);
 
