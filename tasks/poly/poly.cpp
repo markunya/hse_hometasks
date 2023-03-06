@@ -91,7 +91,6 @@ Poly Poly::operator-() const {
     return Poly(result_monomials);
 }
 
-
 Poly Poly::operator-(const Poly& other) const {
     std::map<size_t, int64_t> result_monomials;
     std::vector<size_t> monomials_with_zeros;
