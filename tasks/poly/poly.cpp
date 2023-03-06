@@ -177,4 +177,3 @@ std::ostream& operator<<(std::ostream& stream, const Poly& poly) {
     }
     return stream;
 }
-
