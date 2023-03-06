@@ -28,6 +28,7 @@ TEST_CASE("Poly") {
 
     REQUIRE(Poly({{0, -1}, {2, -3}}) == -poly2);
 
+
     std::stringstream string_stream;
     std::ostream& stream = string_stream;
     stream << poly1 << ", " << poly0 << ", " << -poly1;
