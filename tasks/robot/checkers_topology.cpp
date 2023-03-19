@@ -6,7 +6,7 @@
 CheckersTopology::CheckersTopology(std::vector<std::vector<bool>> map) : Topology(map) {
 }
 
-void CheckersTopology::GetNeighbours_1(std::vector<Point>& neighbours, const Point& point) const {
+void CheckersTopology::GetNeighbours1(std::vector<Point>& neighbours, const Point& point) const {
     Point neighbour;
     neighbour.y = point.y + 1;
     neighbour.x = point.x + 1;
@@ -31,7 +31,7 @@ void CheckersTopology::GetNeighbours_1(std::vector<Point>& neighbours, const Poi
     }
 }
 
-void CheckersTopology::GetNeighbours_2(std::vector<Point>& neighbours, const Point& p) const {
+void CheckersTopology::GetNeighbours2(std::vector<Point>& neighbours, const Point& p) const {
     std::unordered_set<Point> already_counted_points;
     std::queue<Point> points;
     points.push(p);
