@@ -88,7 +88,7 @@ void CheckersTopology::GetNeighbours2(std::vector<Point>& neighbours, const Poin
 
 std::vector<Point> CheckersTopology::GetNeighbours(const Point& point) const {
     std::vector<Point> neighbours;
-    GetNeighbours_1(neighbours, point);
-    GetNeighbours_2(neighbours, point);
+    GetNeighbours1(neighbours, point);
+    GetNeighbours2(neighbours, point);
     return neighbours;
 }
