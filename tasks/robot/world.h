@@ -17,6 +17,13 @@ public:
     const Point& GetStart() const;
     const Point& GetEnd() const;
     const Point& GetCurrentPosition() const;
+    std::vector<Point> FindPath() const;
 
     void Move(const Point& to);
+
+private:
+    const Topology& topology_;
+    Point start_;
+    Point end_;
+    Point current_position_;
 };

@@ -79,7 +79,6 @@ TEST_CASE("RobotPlanar") {
         const auto& path = robot::FindPath(world);
 
         RequirePathIsValid(path, world, topology);
-
         robot::Path expected_path = {
             {.x = 0, .y = 0}, {.x = 0, .y = 1}, {.x = 0, .y = 2}, {.x = 1, .y = 2},
             {.x = 2, .y = 2}, {.x = 2, .y = 1}, {.x = 2, .y = 0},
