@@ -1,6 +1,7 @@
 #include "field.h"
 
-Field::Field(std::vector<std::vector<bool>> field) : field_(field) {}
+Field::Field(std::vector<std::vector<bool>> field) : field_(field) {
+}
 
 size_t Field::Height() const {
     return field_.size();

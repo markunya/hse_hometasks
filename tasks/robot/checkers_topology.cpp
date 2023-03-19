@@ -3,13 +3,15 @@
 #include <unordered_set>
 #include <queue>
 
-CheckersTopology::CheckersTopology(std::vector<std::vector<bool>> map) : Topology(map) {}
+CheckersTopology::CheckersTopology(std::vector<std::vector<bool>> map) : Topology(map) {
+}
 
 void CheckersTopology::GetNeighbours_1(std::vector<Point>& neighbours, const Point& point) const {
     Point neighbour;
     neighbour.y = point.y + 1;
     neighbour.x = point.x + 1;
-    if (CheckersTopology::map_.Height() > neighbour.y && CheckersTopology::map_.Width() > neighbour.x && !CheckersTopology::map_[neighbour]) {
+    if (CheckersTopology::map_.Height() > neighbour.y && CheckersTopology::map_.Width() > neighbour.x &&
+        !CheckersTopology::map_[neighbour]) {
         neighbours.emplace_back(neighbour);
     }
     neighbour.y = point.y - 1;
@@ -33,7 +35,7 @@ void CheckersTopology::GetNeighbours_2(std::vector<Point>& neighbours, const Poi
     std::unordered_set<Point> already_counted_points;
     std::queue<Point> points;
     points.push(p);
-    while(!points.empty()) {
+    while (!points.empty()) {
         Point point = points.front();
         Point neighbour;
         Point between;
@@ -41,7 +43,9 @@ void CheckersTopology::GetNeighbours_2(std::vector<Point>& neighbours, const Poi
         neighbour.x = point.x + 2;
         between.y = point.y + 1;
         between.x = point.x + 1;
-        if (CheckersTopology::map_.Height() > neighbour.y && CheckersTopology::map_.Width() > neighbour.x && !already_counted_points.contains(neighbour) && !CheckersTopology::map_[neighbour] && CheckersTopology::map_[between]) {
+        if (CheckersTopology::map_.Height() > neighbour.y && CheckersTopology::map_.Width() > neighbour.x &&
+            !already_counted_points.contains(neighbour) && !CheckersTopology::map_[neighbour] &&
+            CheckersTopology::map_[between]) {
             neighbours.emplace_back(neighbour);
             points.push(neighbour);
             already_counted_points.insert(neighbour);
@@ -50,7 +54,9 @@ void CheckersTopology::GetNeighbours_2(std::vector<Point>& neighbours, const Poi
         neighbour.x = point.x + 2;
         between.y = point.y - 1;
         between.x = point.x + 1;
-        if (point.y > 1 && CheckersTopology::map_.Width() > neighbour.x && !already_counted_points.contains(neighbour) && !CheckersTopology::map_[neighbour] && CheckersTopology::map_[between]) {
+        if (point.y > 1 && CheckersTopology::map_.Width() > neighbour.x &&
+            !already_counted_points.contains(neighbour) && !CheckersTopology::map_[neighbour] &&
+            CheckersTopology::map_[between]) {
             neighbours.emplace_back(neighbour);
             points.push(neighbour);
             already_counted_points.insert(neighbour);
@@ -59,7 +65,9 @@ void CheckersTopology::GetNeighbours_2(std::vector<Point>& neighbours, const Poi
         neighbour.x = point.x - 2;
         between.y = point.y + 1;
         between.x = point.x - 1;
-        if (point.x > 1 && CheckersTopology::map_.Height() > neighbour.y && !already_counted_points.contains(neighbour) && !CheckersTopology::map_[neighbour] && CheckersTopology::map_[between]) {
+        if (point.x > 1 && CheckersTopology::map_.Height() > neighbour.y &&
+            !already_counted_points.contains(neighbour) && !CheckersTopology::map_[neighbour] &&
+            CheckersTopology::map_[between]) {
             neighbours.emplace_back(neighbour);
             points.push(neighbour);
             already_counted_points.insert(neighbour);
@@ -68,7 +76,8 @@ void CheckersTopology::GetNeighbours_2(std::vector<Point>& neighbours, const Poi
         neighbour.x = point.x - 2;
         between.y = point.y - 1;
         between.x = point.x - 1;
-        if (point.x > 1 && point.y > 1 && !already_counted_points.contains(neighbour) && !CheckersTopology::map_[neighbour] && CheckersTopology::map_[between]) {
+        if (point.x > 1 && point.y > 1 && !already_counted_points.contains(neighbour) &&
+            !CheckersTopology::map_[neighbour] && CheckersTopology::map_[between]) {
             neighbours.emplace_back(neighbour);
             points.push(neighbour);
             already_counted_points.insert(neighbour);

@@ -1,7 +1,8 @@
 #include <queue>
 #include "topology.h"
 
-Topology::Topology(std::vector<std::vector<bool>> map) : map_(map) {}
+Topology::Topology(std::vector<std::vector<bool>> map) : map_(map) {
+}
 
 Topology::Distance Topology::MeasureDistance(const Point& from, const Point& to) const {
     if (from == to) {

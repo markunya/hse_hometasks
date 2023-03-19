@@ -1,6 +1,7 @@
 #include "overflow_topology.h"
 
-OverflowTopology::OverflowTopology(std::vector<std::vector<bool>> map) : Topology(map) {}
+OverflowTopology::OverflowTopology(std::vector<std::vector<bool>> map) : Topology(map) {
+}
 
 std::vector<Point> OverflowTopology::GetNeighbours(const Point& point) const {
     std::vector<Point> neighbours;

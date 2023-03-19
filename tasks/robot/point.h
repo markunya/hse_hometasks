@@ -24,4 +24,4 @@ struct hash<Point> {
         return P1 * point.x * point.y + P2 * point.x + P3 * point.y;
     }
 };
-}
+}  // namespace std

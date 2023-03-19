@@ -11,6 +11,7 @@ public:
     size_t Width() const;
 
     bool operator[](const Point& point) const;
+
 private:
     std::vector<std::vector<bool>> field_;
 };

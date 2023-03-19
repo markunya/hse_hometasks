@@ -1,6 +1,7 @@
 #include "planar_topology.h"
 
-PlanarTopology::PlanarTopology(std::vector<std::vector<bool>> map) : Topology(map) {}
+PlanarTopology::PlanarTopology(std::vector<std::vector<bool>> map) : Topology(map) {
+}
 
 std::vector<Point> PlanarTopology::GetNeighbours(const Point& point) const {
     std::vector<Point> neighbours;
@@ -27,4 +28,3 @@ std::vector<Point> PlanarTopology::GetNeighbours(const Point& point) const {
     }
     return neighbours;
 }
-
