@@ -5,7 +5,8 @@
 #include <cctype>
 
 TEST_CASE("CowString") {
-    const CowString str1("hello");
+    CowString str1("hello");
+    REQUIRE("hello" == str1);
     CowString str2 = str1;
 
     REQUIRE(str1.GetData() == str2.GetData());
@@ -15,13 +16,14 @@ TEST_CASE("CowString") {
 
     str2 += " world";
 
-    for (const auto ch : str1) {
+    for (auto ch : str1) {
         REQUIRE(std::isalpha(ch));
     }
-
+    CowString str3("hello_world");
     const auto* const str2_data = str2.GetData();
-    str2[5] = '_';
-    REQUIRE("hello_world" == str2);
+    const int x = 5;
+    str2[x] = '_';
+    REQUIRE(str3 == str2);
     REQUIRE(str2 == "hello_world");
     REQUIRE(str2_data == str2.GetData());
 
@@ -41,4 +43,10 @@ TEST_CASE("CowString") {
     REQUIRE('h' == *it1);
     REQUIRE('H' == *it2);
     REQUIRE('H' == *const_it2);
+
+    CowString str5("hello");
+    CowString str6(" world");
+    REQUIRE("hello world" == str5 + str6);
+    REQUIRE("hello world" == str5 + " world");
+    REQUIRE("hello world" == "hello" + str6);
 }
