@@ -40,7 +40,6 @@ CowString::CowString(CowStringBuffer* buffer) : buffer_(buffer) {
 CowString::CowString(CowString&& other) {
     buffer_ = other.buffer_;
     ++buffer_->count;
-    other.Delete();
 }
 
 CowString::CowString(std::string_view other) {
@@ -70,9 +69,9 @@ CowString& CowString::operator=(CowString&& other) {
     this->Delete();
     buffer_ = other.buffer_;
     ++buffer_->count;
-    other.Delete();
     return *this;
 }
+
 CowString& CowString::operator=(const CowString& other) {
     if (this == &other) {
         return *this;
