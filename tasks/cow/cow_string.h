@@ -42,7 +42,7 @@ public:
 
     operator std::string_view() const;
     CowString& operator=(CowString&& other);
-    CowString& operator=(CowString& other);
+    CowString& operator=(const CowString& other);
     bool operator==(const std::string_view other) const;
     bool operator==(const CowString& other) const;
     CowString operator+=(const CowString& other);

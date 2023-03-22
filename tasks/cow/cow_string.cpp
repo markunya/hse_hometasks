@@ -73,7 +73,7 @@ CowString& CowString::operator=(CowString&& other) {
     other.Delete();
     return *this;
 }
-CowString& CowString::operator=(CowString& other) {
+CowString& CowString::operator=(const CowString& other) {
     if (this == &other) {
         return *this;
     }
