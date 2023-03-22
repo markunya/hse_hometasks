@@ -6,6 +6,7 @@
 
 TEST_CASE("CowString") {
     CowString str1("hello");
+    CowString str10(std::move(str1));
     REQUIRE("hello" == str1);
     CowString str2 = str1;
 
@@ -45,8 +46,12 @@ TEST_CASE("CowString") {
     REQUIRE('H' == *const_it2);
 
     CowString str5("hello");
-    CowString str6(" world");
-    REQUIRE("hello world" == str5 + str6);
-    REQUIRE("hello world" == str5 + " world");
-    REQUIRE("hello world" == "hello" + str6);
+    CowString str6("w");
+    REQUIRE("hellow" == str5 + str6);
+    REQUIRE("hellow" == str5 + "w");
+    REQUIRE("hellow" == "hello" + str6);
+    REQUIRE("whello" == str6 + "hello");
+    REQUIRE("whello" == str6 + str5);
+    str5 = std::move(str6);
+    REQUIRE("w" == str5);
 }

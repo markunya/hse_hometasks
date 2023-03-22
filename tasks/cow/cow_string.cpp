@@ -23,7 +23,7 @@ ProxyChar& ProxyChar::operator=(const char symbol) {
     new_buffer->size = str_->buffer_->size;
     new_buffer->count = 1;
     new_buffer->buffer = new char[str_->buffer_->size];
-    std::strcpy(new_buffer->buffer, str_->buffer_->buffer);
+    std::memcpy(new_buffer->buffer, str_->buffer_->buffer, str_->buffer_->size);
     new_buffer->buffer[index_] = symbol;
     str_->Delete();
     str_->buffer_ = new_buffer;
@@ -46,8 +46,8 @@ CowString::CowString(CowString&& other) {
 CowString::CowString(std::string_view other) {
     buffer_ = new CowStringBuffer();
     buffer_->size = other.size();
-    buffer_->buffer = new char[buffer_->size];
-    std::strcpy(buffer_->buffer, other.data());
+    buffer_->buffer = new char[other.size()];
+    std::memcpy(buffer_->buffer, other.data(), other.size());
     buffer_->count = 1;
 }
 
@@ -67,7 +67,7 @@ CowString& CowString::operator=(CowString&& other) {
     if (this == &other) {
         return *this;
     }
-    Delete();
+    this->Delete();
     buffer_ = other.buffer_;
     ++buffer_->count;
     other.Delete();
@@ -77,7 +77,7 @@ CowString& CowString::operator=(const CowString& other) {
     if (this == &other) {
         return *this;
     }
-    Delete();
+    this->Delete();
     buffer_ = other.buffer_;
     ++buffer_->count;
     return *this;
@@ -118,8 +118,8 @@ CowString operator+(const CowString& other_1, const CowString& other_2) {
         new_buffer->size = other_1.buffer_->size + other_2.buffer_->size;
         new_buffer->count = 1;
         new_buffer->buffer = new char[other_1.buffer_->size + other_2.buffer_->size];
-        std::strcpy(new_buffer->buffer, other_1.buffer_->buffer);
-        std::strcpy(new_buffer->buffer + other_1.buffer_->size, other_2.buffer_->buffer);
+        std::memcpy(new_buffer->buffer, other_1.buffer_->buffer, other_1.buffer_->size);
+        std::memcpy(new_buffer->buffer + other_1.buffer_->size, other_2.buffer_->buffer, other_2.buffer_->size);
         return CowString(new_buffer);
 }
 
@@ -134,8 +134,8 @@ CowString operator+(std::string_view other_1, const CowString& other_2) {
         new_buffer->size = other_2.buffer_->size + other_1.size();
         new_buffer->count = 1;
         new_buffer->buffer = new char[other_2.buffer_->size + other_1.size()];
-        std::strcpy(new_buffer->buffer, other_1.data());
-        std::strcpy(new_buffer->buffer + other_1.size(), other_2.buffer_->buffer);
+        std::memcpy(new_buffer->buffer, other_1.data(), other_1.size());
+        std::memcpy(new_buffer->buffer + other_1.size(), other_2.buffer_->buffer, other_2.buffer_->size);
         return CowString(new_buffer);
 }
 
@@ -150,8 +150,8 @@ CowString operator+(const CowString& other_1, std::string_view other_2) {
     new_buffer->size = other_1.buffer_->size + other_2.size();
     new_buffer->count = 1;
     new_buffer->buffer = new char[other_1.buffer_->size + other_2.size()];
-    std::strcpy(new_buffer->buffer, other_1.buffer_->buffer);
-    std::strcpy(new_buffer->buffer + other_1.buffer_->size, other_2.data());
+    std::memcpy(new_buffer->buffer, other_1.buffer_->buffer, other_1.buffer_->size);
+    std::memcpy(new_buffer->buffer + other_1.buffer_->size, other_2.data(), other_2.size());
     return CowString(new_buffer);
 }
 
@@ -163,8 +163,8 @@ CowString CowString::operator+=(const CowString& other) {
     new_buffer->size = this->buffer_->size + other.buffer_->size;
     new_buffer->count = 1;
     new_buffer->buffer = new char[this->buffer_->size + other.buffer_->size];
-    std::strcpy(new_buffer->buffer, this->buffer_->buffer);
-    std::strcpy(new_buffer->buffer + this->buffer_->size, other.buffer_->buffer);
+    std::memcpy(new_buffer->buffer, this->buffer_->buffer, this->buffer_->size);
+    std::memcpy(new_buffer->buffer + this->buffer_->size, other.buffer_->buffer, other.buffer_->size);
     this->Delete();
     this->buffer_ = new_buffer;
     return *this;
@@ -178,8 +178,8 @@ CowString CowString::operator+=(const std::string_view other) {
     new_buffer->size = this->buffer_->size + other.size();
     new_buffer->count = 1;
     new_buffer->buffer = new char[this->buffer_->size + other.size()];
-    std::strcpy(new_buffer->buffer, this->buffer_->buffer);
-    std::strcpy(new_buffer->buffer + this->buffer_->size, other.data());
+    std::memcpy(new_buffer->buffer, this->buffer_->buffer, this->buffer_->size);
+    std::memcpy(new_buffer->buffer + this->buffer_->size, other.data(), other.size());
     this->Delete();
     this->buffer_ = new_buffer;
     return *this;
