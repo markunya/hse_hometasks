@@ -52,10 +52,10 @@ Image::Image(const std::string& in_path) {
     const int non_zero_byte_11 = 11;
 
     width_ = info_header[non_zero_byte_4] + (info_header[non_zero_byte_5] << shift_1_byte) +
-             (info_header[non_zero_byte_6] << shift_2_byte) + (info_header[non_zero_byte_7] << shift_3_byte);
+              (info_header[non_zero_byte_6] << shift_2_byte) + (info_header[non_zero_byte_7] << shift_3_byte);
 
     height_ = info_header[non_zero_byte_8] + (info_header[non_zero_byte_9] << shift_1_byte) +
-             (info_header[non_zero_byte_10] << shift_2_byte) + (info_header[non_zero_byte_11] << shift_3_byte);
+              (info_header[non_zero_byte_10] << shift_2_byte) + (info_header[non_zero_byte_11] << shift_3_byte);
 
     std::vector<std::vector<RGB>> pixels(height_, std::vector<RGB>(width_));
     image_ = pixels;
@@ -70,7 +70,8 @@ Image::Image(const std::string& in_path) {
             uint8_t rgb[3];
             f.read(reinterpret_cast<char*>(rgb), 3);
 
-            image_[i][j] = RGB(static_cast<double>(rgb[2] / max_color_value), static_cast<double>(rgb[1] / max_color_value),
+            image_[i][j] =
+                RGB(static_cast<double>(rgb[2] / max_color_value), static_cast<double>(rgb[1] / max_color_value),
                                static_cast<double>(rgb[0] / max_color_value));
         }
         f.ignore(padding_amount);
