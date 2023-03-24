@@ -10,6 +10,5 @@ public:
 
 class MatrixFilter : public Filter {
 public:
-//    void Apply(Image& image) override;
     virtual std::vector<std::vector<int>> GetMatrix() = 0;
 };

@@ -37,7 +37,7 @@ Image::Image(const std::string& in_path) {
     uint8_t info_header[info_header_size_];
     f.read(reinterpret_cast<char*>(info_header), info_header_size_);
 
-    //Magic numbers
+    // Magic numbers
     const int shift_1_byte = 8;
     const int shift_2_byte = 16;
     const int shift_3_byte = 24;
@@ -51,15 +51,11 @@ Image::Image(const std::string& in_path) {
     const int non_zero_byte_10 = 10;
     const int non_zero_byte_11 = 11;
 
-    width_ = info_header[non_zero_byte_4] +
-             (info_header[non_zero_byte_5] << shift_1_byte) +
-             (info_header[non_zero_byte_6] << shift_2_byte) +
-             (info_header[non_zero_byte_7] << shift_3_byte);
+    width_ = info_header[non_zero_byte_4] + (info_header[non_zero_byte_5] << shift_1_byte) +
+             (info_header[non_zero_byte_6] << shift_2_byte) + (info_header[non_zero_byte_7] << shift_3_byte);
 
-    height_ = info_header[non_zero_byte_8] +
-             (info_header[non_zero_byte_9] << shift_1_byte) +
-             (info_header[non_zero_byte_10] << shift_2_byte) +
-             (info_header[non_zero_byte_11] << shift_3_byte);
+    height_ = info_header[non_zero_byte_8] + (info_header[non_zero_byte_9] << shift_1_byte) +
+             (info_header[non_zero_byte_10] << shift_2_byte) + (info_header[non_zero_byte_11] << shift_3_byte);
 
     std::vector<std::vector<RGB>> pixels(height_, std::vector<RGB>(width_));
     image_ = pixels;
@@ -74,8 +70,7 @@ Image::Image(const std::string& in_path) {
             uint8_t rgb[3];
             f.read(reinterpret_cast<char*>(rgb), 3);
 
-            image_[i][j] = RGB(static_cast<double>(rgb[2] / max_color_value),
-                               static_cast<double>(rgb[1] / max_color_value),
+            image_[i][j] = RGB(static_cast<double>(rgb[2] / max_color_value), static_cast<double>(rgb[1] / max_color_value),
                                static_cast<double>(rgb[0] / max_color_value));
         }
         f.ignore(padding_amount);
@@ -92,12 +87,13 @@ void Image::Export(const std::string& out_path) {
         throw CouldNotOpenFile();
     }
 
-    uint8_t bmp_pad[3] = {0,0,0};
+    uint8_t bmp_pad[3] = {0, 0, 0};
     const uint8_t padding_amount = (4 - (width_ * 3) % 4) % 4;
 
-    const uint32_t file_size = static_cast<size_t>(height_) * (static_cast<size_t>(width_) * 3 + padding_amount) + file_header_size_ + info_header_size_;
+    const uint32_t file_size = static_cast<size_t>(height_) * (static_cast<size_t>(width_) * 3 + padding_amount) +
+                               file_header_size_ + info_header_size_;
 
-    //Magic numbers
+    // Magic numbers
     const uint8_t shift_1_byte = 8;
     const uint8_t shift_2_byte = 16;
     const uint8_t shift_3_byte = 24;
@@ -132,7 +128,7 @@ void Image::Export(const std::string& out_path) {
         info_header[i] = 0;
     }
 
-    //Magic numbers
+    // Magic numbers
     const uint8_t non_zero_byte_0_info = 0;
     const uint8_t non_zero_byte_4_info = 4;
     const uint8_t non_zero_byte_5_info = 5;
