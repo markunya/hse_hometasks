@@ -1,4 +1,12 @@
 add_executable(
     image_processor
     image_processor.cpp
+    image.cpp
+    parser.cpp
+    io.cpp
+    rgb.cpp
+    filter.cpp
+    filters/negative.cpp
+    filters/crop.cpp
+    filters/gray_scale.cpp
 )
