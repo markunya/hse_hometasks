@@ -21,4 +21,3 @@ uint32_t Crop::Width() const {
 uint32_t Crop::Height() const {
     return height_;
 }
-
