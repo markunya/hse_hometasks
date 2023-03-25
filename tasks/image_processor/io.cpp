@@ -19,7 +19,7 @@ std::vector<std::shared_ptr<Filter>> CreateFilters(std::vector<FilterConfig> fil
             size_t width = 0;
             try {
                 width = std::stoull(config.arguments[0]);
-                height = std::stoull(config.arguments[0]);
+                height = std::stoull(config.arguments[1]);
             } catch (const std::exception& e) {
                 throw InvalidTypeOfArguments();
             }
