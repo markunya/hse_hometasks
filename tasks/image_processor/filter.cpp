@@ -1,13 +1,12 @@
 #include "filter.h"
 
-
 void MatrixFilter::Apply(Image &image) {
     std::vector<std::vector<int>> matrix = GetMatrix();
     std::vector<std::vector<RGB>> new_image(image.Height(), std::vector<RGB>(image.Width()));
     const int64_t zero = 0;
     for (size_t i = 0; i < image.Height(); ++i) {
         for (size_t j = 0; j < image.Width(); ++j) {
-            for (int64_t y = -static_cast<int>(matrix.size()) / 2;  y < static_cast<int64_t>(matrix.size()) / 2 + 1;
+            for (int64_t y = -static_cast<int>(matrix.size()) / 2; y < static_cast<int64_t>(matrix.size()) / 2 + 1;
                  ++y) {
                 for (int64_t x = -static_cast<int>(matrix[0].size()) / 2;
                      x < static_cast<int64_t>(matrix[0].size()) / 2 + 1; ++x) {
