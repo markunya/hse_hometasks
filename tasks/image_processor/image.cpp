@@ -178,5 +178,4 @@ void Image::Export(const std::string& out_path) {
     }
 
     f.close();
-    std::cout << "The work is done";
 }

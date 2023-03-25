@@ -9,4 +9,7 @@ add_executable(
     filters/negative.cpp
     filters/crop.cpp
     filters/gray_scale.cpp
+    filters/sharpening.cpp
+    filters/edge_detection.cpp
+    filters/gausian_blur.cpp
 )

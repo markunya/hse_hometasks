@@ -14,6 +14,8 @@ struct {
     const std::string negative = "neg";
     const std::string crop = "crop";
     const std::string gray_scale = "gs";
+    const std::string sharpening = "sharp";
+    const std::string edge_detection = "edge";
 } const AVAILABLE_FILTERS;
 
 std::vector<std::shared_ptr<Filter>> CreateFilters(std::vector<FilterConfig> filter_configs);
