@@ -4,6 +4,12 @@ Crop::Crop(uint32_t width, uint32_t height) : width_(width), height_(height) {
 }
 
 void Crop::Apply(Image& image) {
+    if (Height() > image.Height()) {
+        height_ = image.Height();
+    }
+    if (Width() > image.Width()) {
+        width_ = image.Width();
+    }
     std::vector<std::vector<RGB>> new_image(Height(), std::vector<RGB>(Width()));
     for (size_t i = 0; i < Height(); ++i) {
         for (size_t j = 0; j < Width(); ++j) {
