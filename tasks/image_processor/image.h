@@ -15,6 +15,7 @@ public:
     uint32_t Height() const;
 
     std::vector<RGB>& operator[](uint32_t i);
+    bool operator==(const Image& other) const;
     void ReplaceImage(const std::vector<std::vector<RGB>>& other_image);
     void Resize(size_t new_width, size_t new_height);
 

@@ -179,3 +179,16 @@ void Image::Export(const std::string& out_path) {
 
     f.close();
 }
+bool Image::operator==(const Image& other) const {
+    if (Height() != other.Height() || Width() != other.Width()) {
+        return false;
+    }
+    for (size_t i = 0; i < Height(); ++i) {
+        for (size_t j = 0; j < Width(); ++j) {
+            if (image_[i][j] != other.image_[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

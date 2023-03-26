@@ -44,3 +44,9 @@ RGB operator*(const double lambda, const RGB& rgb) {
 RGB operator*(const RGB& rgb, const double lambda) {
     return RGB(lambda * rgb.red, lambda * rgb.green, lambda * rgb.blue);
 }
+bool RGB::operator==(const RGB& other) const {
+    const double normal_deviation = 0.01;
+    return std::abs(red - other.red)  <  normal_deviation &&
+           std::abs(green - other.green)  <  normal_deviation &&
+           std::abs(blue - other.blue)  <  normal_deviation;
+}

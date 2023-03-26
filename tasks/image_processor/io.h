@@ -17,6 +17,7 @@ struct {
     const std::string sharpening = "sharp";
     const std::string edge_detection = "edge";
     const std::string gaussian_blur = "blur";
+    const std::string cartoon = "cart";
 } const AVAILABLE_FILTERS;
 
 std::vector<std::shared_ptr<Filter>> CreateFilters(std::vector<FilterConfig> filter_configs);

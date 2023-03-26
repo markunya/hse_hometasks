@@ -3,6 +3,7 @@
 #include "filters/sharpening.h"
 #include "filters/edge_detection.h"
 #include "filters/gausian_blur.h"
+#include "filters/cartoon.h"
 
 std::vector<std::shared_ptr<Filter>> CreateFilters(std::vector<FilterConfig> filter_configs) {
     std::vector<std::shared_ptr<Filter>> filters;
@@ -49,6 +50,10 @@ std::vector<std::shared_ptr<Filter>> CreateFilters(std::vector<FilterConfig> fil
                 throw InvalidTypeOfArguments();
             }
             filters.push_back(std::make_shared<GaussianBlur>(sigma));
+            continue;
+        }
+        if (config.name == AVAILABLE_FILTERS.cartoon) {
+            filters.push_back(std::make_shared<Cartoon>());
             continue;
         }
     }

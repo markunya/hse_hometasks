@@ -15,6 +15,7 @@ public:
     RGB operator+(const RGB& other) const;
     RGB operator-(const RGB& other) const;
     RGB operator+=(const RGB& other);
+    bool operator==(const RGB& other) const;
     friend RGB operator*(const double lambda, const RGB& rgb);
     friend RGB operator*(const RGB& rgb, const double lambda);
 };
