@@ -7,7 +7,7 @@ GaussianBlur::GaussianBlur(const double& sigma) {
     const double c = 2.0;
     double element = 0.0;
     matrix.push_back({});
-    const int matrix_size = 21;
+    const int matrix_size = 25;
     for (int i = -matrix_size / 2; i < matrix_size - matrix_size / 2; ++i) {
         element = (exp(-(i * i) / (c * sigma * sigma))) / (sqrt(c * M_PI) * sigma);
         sum += element;
