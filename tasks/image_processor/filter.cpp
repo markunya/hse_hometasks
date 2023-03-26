@@ -22,7 +22,7 @@ void MatrixFilter::Apply(Image &image) {
                         new_image[i][j] += matrix[matrix_y][matrix_x] * image[image_y][image_x];
                     }
                 }
-                    new_image[i][j].Normalize();
+                new_image[i][j].Normalize();
             }
         }
         image.ReplaceImage(new_image);

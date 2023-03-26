@@ -31,4 +31,3 @@ const std::vector<std::vector<std::vector<double>>>& GaussianBlur::GetMatrixVect
 void GaussianBlur::Apply(Image& image) {
     MatrixFilter::Apply(image);
 }
-
