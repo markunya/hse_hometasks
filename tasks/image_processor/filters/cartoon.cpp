@@ -15,7 +15,7 @@ void Cartoon::Apply(Image& image) {
     blur.Apply(image);
     for (size_t i = 0; i < image.Height(); ++i) {
         for (size_t j = 0; j < image.Width(); ++j) {
-            if (new_layer[i][j].red > number_close_to_one)  {
+            if (new_layer[i][j].red > number_close_to_one) {
                 image[i][j] = RGB() + image[i][j] * opacity_of_detection;
             }
         }
