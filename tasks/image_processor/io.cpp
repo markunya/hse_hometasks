@@ -2,6 +2,7 @@
 #include "io.h"
 #include "filters/sharpening.h"
 #include "filters/edge_detection.h"
+#include "filters/gausian_blur.h"
 
 std::vector<std::shared_ptr<Filter>> CreateFilters(std::vector<FilterConfig> filter_configs) {
     std::vector<std::shared_ptr<Filter>> filters;
@@ -38,6 +39,16 @@ std::vector<std::shared_ptr<Filter>> CreateFilters(std::vector<FilterConfig> fil
                 throw InvalidTypeOfArguments();
             }
             filters.push_back(std::make_shared<EdgeDetection>(threshold));
+            continue;
+        }
+        if (config.name == AVAILABLE_FILTERS.gaussian_blur) {
+            double sigma = 0;
+            try {
+                sigma = std::stod(config.arguments[0]);
+            } catch (const std::exception& e) {
+                throw InvalidTypeOfArguments();
+            }
+            filters.push_back(std::make_shared<GaussianBlur>(sigma));
             continue;
         }
     }

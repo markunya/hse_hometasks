@@ -23,6 +23,6 @@ void EdgeDetection::Apply(Image& image) {
         }
     }
 }
-std::vector<std::vector<int>> EdgeDetection::GetMatrix() const {
-    return matrix_;
+const std::vector<std::vector<std::vector<double>>>& EdgeDetection::GetMatrixVector() const {
+    return matrix_vector_;
 }

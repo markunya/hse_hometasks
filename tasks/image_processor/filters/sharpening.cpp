@@ -1,5 +1,5 @@
 #include "sharpening.h"
 
-std::vector<std::vector<int>> Sharpening::GetMatrix() const {
-    return matrix_;
+const std::vector<std::vector<std::vector<double>>>& Sharpening::GetMatrixVector() const {
+    return matrix_vector_;
 }
