@@ -1,4 +1,33 @@
 add_executable(
     image_processor
     image_processor.cpp
+    image.cpp
+    parser.cpp
+    io.cpp
+    rgb.cpp
+    filter.cpp
+    filters/negative.cpp
+    filters/crop.cpp
+    filters/gray_scale.cpp
+    filters/sharpening.cpp
+    filters/edge_detection.cpp
+    filters/gausian_blur.cpp
+    filters/cartoon.cpp
+)
+
+add_catch(
+    test_image_processor
+    test.cpp
+    image.cpp
+    parser.cpp
+    io.cpp
+    rgb.cpp
+    filter.cpp
+    filters/negative.cpp
+    filters/crop.cpp
+    filters/gray_scale.cpp
+    filters/sharpening.cpp
+    filters/edge_detection.cpp
+    filters/gausian_blur.cpp
+    filters/cartoon.cpp
 )
