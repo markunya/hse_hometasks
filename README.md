@@ -1,4 +1,11 @@
-С++ курс ВШЭ
-Стайлгайд описан в STYLEGUIDE.md.
-Темы лекций по которым собственно были задачи в LECTURES.md.
-Задачи находятся в папке tasks. Наиболее интересные из них на мой взгляд cow, robot, mines, search (search2) и image_processor.
+# С++ курс
+
+Прочитайте [SETUP.md](SETUP.md) и сдайте первую задачу.
+
+Дедлайны по задачам можно наблюдать на сайте https://cpp-hse.ru/
+
+Стайлгайд описан в [STYLEGUIDE.md](STYLEGUIDE.md).
+
+Правила оценивания в [SCORE.md](SCORE.md).
+
+Темы лекций в [LECTURES.md](LECTURES.md).
